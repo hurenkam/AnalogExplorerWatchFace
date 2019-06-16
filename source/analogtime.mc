@@ -59,16 +59,31 @@ class AnalogTime extends Gauges.AnalogTime {
     function draw(dc)
     {
 		var time = System.getClockTime();
-		var altitude = 11.0;
-		var distance = 2350.0;
-		var speed = 4.5;
-		var heading = 45.0;
+		
+		var altitude = 0;
+		var speed = 0;
+		var heading = 0;
+		var distance = 0;
+		
+		var info = Activity.getActivityInfo();
+		
+		if (info has :altitude) 				
+		{ altitude = info.altitude;	}
+		
+		if (info has :currentSpeed)
+		{ speed = info.currentSpeed * 3.6; } // m/s => km/h
+		
+		if (info has :currentHeading)
+		{ heading = info.currentHeading * Math.PI/180; } // radians => degrees
+		
+		if (info has :distanceToDestination)
+		{ distance = info.distanceToDestination; }
 		
 		speedGauge.onUpdate(dc,speed);
 		distanceGauge.onUpdate(dc,distance);
 		compassGauge.onUpdate(dc,heading);
 		altitudeGauge.onUpdate(dc,altitude);
-
+		
 		drawTickMarks(dc,  0, 60, 60, 2,  7, theme.DefaultDimmed);
 		drawTickMarks(dc,  0, 12, 12, 4, 12, theme.AccentBright);
 		drawNumbers(dc,Graphics.FONT_MEDIUM,t.DefaultBright);
