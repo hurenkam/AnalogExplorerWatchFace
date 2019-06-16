@@ -19,7 +19,7 @@ class AnalogTime extends Gauges.AnalogTime {
 
 		speedGauge = new Gauges.SpeedGauge(0,0,40,theme,2);
 		distanceGauge = new Gauges.DistanceGauge(0,0,40,theme,2);
-		compassGauge = new Gauges.AnalogTime(0,0,40,theme,2);
+		compassGauge = new Gauges.CompassGauge(0,0,40,theme,2);
 		altitudeGauge = new Gauges.DistanceGauge(0,0,40,theme,2);
 		
 		positionGauge(speedGauge,45);
@@ -62,10 +62,11 @@ class AnalogTime extends Gauges.AnalogTime {
 		var altitude = 11.0;
 		var distance = 2350.0;
 		var speed = 4.5;
+		var heading = 45.0;
 		
 		speedGauge.onUpdate(dc,speed);
 		distanceGauge.onUpdate(dc,distance);
-		compassGauge.onUpdate(dc,time);
+		compassGauge.onUpdate(dc,heading);
 		altitudeGauge.onUpdate(dc,altitude);
 
 		drawTickMarks(dc,  0, 60, 60, 2,  7, theme.DefaultDimmed);
