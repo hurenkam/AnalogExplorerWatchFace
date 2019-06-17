@@ -10,7 +10,7 @@ using Toybox.WatchUi;
 using WidgetBarrel.PrimitiveShapes as Shapes;
 using WidgetBarrel.AnalogGauges as Gauges;
 
-class AnalogTime extends Gauges.AnalogTime {
+class AnalogClock extends Gauges.AnalogTime {
 	var buffer, theme, secondsHand, timeGauge, distanceGauge, compassGauge, altitudeGauge, speedGauge;
 	
     function initialize() {
