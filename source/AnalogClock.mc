@@ -46,6 +46,7 @@ class AnalogClock extends Gauges.AnalogTime {
 		var image = WatchUi.loadResource(Rez.Drawables.FacePlate);
 		buffer = new Graphics.BufferedBitmap({:bitmapResource=>image});
     	var bufferdc = buffer.getDc();
+    	image = null;
     	
 		bufferdc.clearClip();
 		
