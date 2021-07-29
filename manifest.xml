@@ -2,8 +2,20 @@
     <iq:application entry="AnalogExplorerWatchFaceApp" id="c220ceccd5ec40f783ec2bf5e9923a29" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="3.0.0" name="@Strings.AppName" type="watchface" version="0.0.1">
         <iq:products>
             <iq:product id="fenix5plus"/>
+            <iq:product id="fenix5splus"/>
+            <iq:product id="fenix5xplus"/>
+            <iq:product id="fenix6"/>
+            <iq:product id="fenix6pro"/>
+            <iq:product id="fenix6s"/>
+            <iq:product id="fenix6spro"/>
+            <iq:product id="fenix6xpro"/>
+            <iq:product id="venu"/>
+            <iq:product id="venu2"/>
+            <iq:product id="venu2s"/>
         </iq:products>
-        <iq:permissions/>
+        <iq:permissions>
+            <iq:uses-permission id="Positioning"/>
+        </iq:permissions>
         <iq:languages>
             <iq:language>eng</iq:language>
         </iq:languages>
