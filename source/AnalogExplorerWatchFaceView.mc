@@ -26,12 +26,12 @@ class AnalogExplorerWatchFaceView extends WatchUi.WatchFace {
     // Update the view
     function onUpdate(dc)
     {
-    	analogClock.onMinutesUpdate(dc);
+    	analogClock.onUpdate(dc);
     }
     
     function onPartialUpdate(dc)
     {
-    	analogClock.onSecondsUpdate(dc);
+    	analogClock.onPartialUpdate(dc);
     }
     
     // Called when this View is removed from the screen. Save the
@@ -42,9 +42,11 @@ class AnalogExplorerWatchFaceView extends WatchUi.WatchFace {
 
     // The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() {
+    	analogClock.onExitSleep();
     }
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() {
+    	analogClock.onEnterSleep();
     }
 }
