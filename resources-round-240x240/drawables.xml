@@ -1,0 +1,4 @@
+<drawables>
+    <bitmap id="LightFacePlate" filename="lightbackground240.png"/>
+    <bitmap id="DarkFacePlate" filename="background240.png"/>
+</drawables>

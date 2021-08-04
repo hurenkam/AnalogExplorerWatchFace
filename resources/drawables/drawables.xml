@@ -2,4 +2,6 @@
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
     <bitmap id="FacePlate" filename="background240.png" />
     <bitmap id="Gauge_09" filename="gauge_90_0-9.png" />
+    <bitmap id="LightFacePlate" filename="lightbackground240.png"/>
+    <bitmap id="DarkFacePlate" filename="background240.png"/>
 </drawables>

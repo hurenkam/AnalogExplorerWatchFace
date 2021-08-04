@@ -14,15 +14,17 @@ class AnalogClock extends Gauges.AnalogTime {
 	var width, buffer, theme, secondsHand, time, timeGauge, distanceGauge, compassGauge, altitudeGauge, speedGauge;
 	var settings = System.getDeviceSettings();
 	var lowpower = false;
+	var jitter = 0;
 	
     function initialize() {
     	theme = new Gauges.DarkBlueTheme();
     	width = Toybox.System.getDeviceSettings().screenWidth;
     	var bigradius = width / 2;
     	var smallradius = width / 6;
+    	var handwidth = width / 60;
     	
 		settings = System.getDeviceSettings();
-    	Gauges.AnalogTime.initialize(bigradius,bigradius,bigradius,theme,4);
+    	Gauges.AnalogTime.initialize(bigradius,bigradius,bigradius,theme,handwidth);
     	    	
 		speedGauge = new Gauges.SpeedGauge(0,0,smallradius,theme,2);
 		distanceGauge = new Gauges.DistanceGauge(0,0,smallradius,theme,2);
@@ -63,32 +65,52 @@ class AnalogClock extends Gauges.AnalogTime {
     
     function onUpdate(dc)
     {
-    	System.println("AnalogClock.onUpdate()");
     	buffer = null;
+    	var bufferdc = null;
     	
-		if (Graphics has :createBufferedBitmap) {
+		if (Graphics has :createBufferedBitmap) { 
 		    buffer = Graphics.createBufferedBitmap({
 				:width=>dc.getWidth(),
             	:height=>dc.getHeight()
-        	}).get();
+        	}).get();        	
+        	
+    		bufferdc = buffer.getDc();
+		    bufferdc.setColor(theme.AccentDark, theme.AccentDark);
+	        bufferdc.clear();
 		} else {
-		    buffer = new Graphics.BufferedBitmap({
-				:width=>dc.getWidth(),
-            	:height=>dc.getHeight()
-        	});
+			var image = null;
+			if (theme.Background == 0)
+			{
+				image = WatchUi.loadResource(Rez.Drawables.DarkFacePlate);
+			}
+			else
+			{
+				image = WatchUi.loadResource(Rez.Drawables.LightFacePlate);
+			}
+			
+			buffer = new Graphics.BufferedBitmap({:bitmapResource=>image});
+    		bufferdc = buffer.getDc();
 		}
 		
-    	var bufferdc = buffer.getDc();
-    	if (settings.requiresBurnInProtection and lowpower)
+    	if (settings.requiresBurnInProtection)
     	{
-	        bufferdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-    	}
-    	else
-    	{
-	        bufferdc.setColor(theme.AccentDark, theme.AccentDark);
-        }
-        bufferdc.clear();
-    	
+    		if (lowpower)
+	    	{
+	        	if (self.jitter == 0)
+	        	{
+	        		self.jitter = 1;
+	        		self.move(1,0);
+	        	} else // jitter == 1
+	        	{
+	        		self.jitter = 0;
+	        		self.move(-1,0);
+	        	}
+	        	
+		        bufferdc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+	        	bufferdc.clear();
+	    	}
+		}
+		    	
 		bufferdc.clearClip();
 		
 		time = System.getClockTime();
@@ -141,9 +163,9 @@ class AnalogClock extends Gauges.AnalogTime {
 			dbg += Lang.format(", distance: $1$", [distance]);
 		}
 		
-    	System.println("AnalogClock.draw() info: [" + dbg + "]");
+    	//System.println("AnalogClock.draw() info: [" + dbg + "]");
 		
-    	if (!(settings.requiresBurnInProtection and lowpower))
+    	//if (!(settings.requiresBurnInProtection and lowpower))
     	{
 			speedGauge.onUpdate(dc,speed);
 			distanceGauge.onUpdate(dc,distance);
@@ -160,11 +182,16 @@ class AnalogClock extends Gauges.AnalogTime {
 		
 		drawHoursHand(dc,hoursAngle,t.DefaultBright);
 		drawMinutesHand(dc,minutesAngle,t.DefaultBright);
+		
+    	if ((settings.requiresBurnInProtection) and (lowpower))
+    	{
+    		// dither the watchface, but how?
+		}
     }
     
     function onPartialUpdate(dc)
     {
-    	System.println("AnalogClock.onPartialUpdate()");
+    	//System.println("AnalogClock.onPartialUpdate()");
 		time = System.getClockTime();
 		drawSecondsHand(dc);
 	}
