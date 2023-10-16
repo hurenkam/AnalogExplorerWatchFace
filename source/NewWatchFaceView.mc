@@ -3,10 +3,85 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
+using WidgetBarrel.AnalogGauges as Gauges;
+
 class NewWatchFaceView extends WatchUi.WatchFace {
+    hidden var _outer;
+    hidden var _topleft;
+    hidden var _topright;
+    hidden var _bottom;
+    hidden var _hourhand;
+    hidden var _minutehand;
+    hidden var _secondhand;
+    hidden var _headinghand;
+    hidden var _altitudehand;
+    hidden var _speedhand;
 
     function initialize() {
         WatchFace.initialize();
+
+        // clock on outer dial
+        self._outer = new Gauges.Gauge(
+            { :x => 227, :y => 227, :radius => 227, :size => 50, :fullscreen => 0 },
+            { :text => Graphics.COLOR_BLUE, :stripes => Graphics.COLOR_BLUE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
+            ["*....|....|....*....|....|         |....|....*....|....|....","12","3","9"]
+        );
+        self._hourhand = new Gauges.Hand(
+            {:x => 227.0, :y => 227.0},
+            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.HourHand}
+        );
+        self._minutehand = new Gauges.Hand(
+            {:x => 227.0, :y => 227.0},
+            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.MinuteHand}
+        );
+        self._secondhand = new Gauges.Hand(
+            {:x => 227.0, :y => 227.0},
+            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.SecondHand}
+        );
+
+        // compass on top left dial
+        self._topleft = new Gauges.Gauge(
+            { :x => 227-90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
+            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
+            ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","N","|","E","|","S","|","W","|"]
+        );
+        self._headinghand = new Gauges.Hand(
+            {:x => 227.0 - 90, :y => 227.0 - 80},
+            {:dx => -15.0, :dy => -200.0, :scale => 0.3, :reference => Rez.Drawables.CompassNeedle}
+        );
+
+
+        // altitude on top right dial
+        self._topright = new Gauges.Gauge(
+            //{ :x => 227+90, :y => 227-80, :radius => 70, :size => 24 },
+            { :x => 227+90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
+            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
+            ["*....|....*....|         |....*....|....","2k","3k","1k"]
+            // Analog Clock:   ["*....|....|....*....|....|....*....|....|....*....|....|....","12","3","6","9"]
+            // Altitude:       ["*....|....*....|....*         *....|....*....|....","5k","7k","9k","1k","3k"]
+            // Heading:        ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","N","|","E","|","S","|","W","|"]
+        );
+        self._altitudehand = new Gauges.Hand(
+            {:x => 227.0 + 90, :y => 227.0 - 80},
+            {:dx => -15.0, :dy => -200.0, :scale => 0.3, :reference => Rez.Drawables.SpeedNeedle }
+        );
+
+
+        // speed on bottom dial
+        self._bottom = new Gauges.Gauge(
+            { :x => 227, :y => 227+140, :radius => 120, :size => 25, :fullscreen => 0 },
+            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
+            ["*|*|*|*       *|*|*|","20","15","10","5","35","30","25"]
+            //["* ...|... * ...|... * ...|... *                                       * ...|... * ...|... * ...|... ","70","90","110","130","10","30","50"]
+            // Hiking pace:          ["*|*|*|*       *|*|*|","20","15","10","5","35","30","25"]
+            // Cycling speed:        ["*|*|*|*       *|*|*|","20","25","30","35","5","10","15"]
+            // Car speed:            ["*|*|*|*       *|*|*|","70","90","110","130","10","30","50"]
+            // Analog Clock:         ["*....|....|....*....|....|         |....|....*....|....|....","12","3","9"]
+        );
+        self._speedhand = new Gauges.Hand(
+            {:x => 227.0, :y => 227.0 + 140},
+            {:dx => -15.0, :dy => -200.0, :scale => 0.5, :reference => Rez.Drawables.SpeedNeedle }
+        );
     }
 
     // Load your resources here
@@ -24,14 +99,28 @@ class NewWatchFaceView extends WatchUi.WatchFace {
     function onUpdate(dc as Dc) as Void {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
-        self.drawBackground(dc);
-        //self.drawCompassGauge(dc,227,227,227,48);
-        //self.drawSpeedGauge(dc,227,227,227,48);
-        //self.drawClockGauge(dc,227,227,227,48);
-        self.drawCompassGauge(dc,227-90,227-90,80,24);
-        self.drawSpeedGauge(dc,227-90,227+90,80,24);
-        self.drawClockGauge(dc,227+90,227-90,80,24,["1","2","3","4","5","6","7","8","9","10","11","12"]);
-        self.drawClockGauge(dc,227,227,227,48,["1","2","3","4","5","6","7","8","9","10","11","12"]);
+
+        self._outer.draw(dc);
+        self._topleft.draw(dc);
+        self._topright.draw(dc);
+        self._bottom.draw(dc);
+
+        dc.clearClip();
+
+		var time = System.getClockTime();
+        var secondangle = (time.sec/60.0)   * 2.0 * Math.PI;
+        var minuteangle = (time.min/60.0)   * 2.0 * Math.PI;
+        var hourangle =   (time.hour/12.0)  * 2.0 * Math.PI + minuteangle/12;
+        var headingangle = 0.35 * Math.PI;
+        var altitudeangle = 0.15 * Math.PI;
+        var speedangle = 0.25 * Math.PI;
+
+        self._hourhand.draw(dc,hourangle);
+        self._minutehand.draw(dc,minuteangle);
+        self._secondhand.draw(dc,secondangle);
+        self._headinghand.draw(dc,headingangle);
+        self._altitudehand.draw(dc,altitudeangle);
+        self._speedhand.draw(dc,speedangle);
     }
 
     // Called when this View is removed from the screen. Save the
@@ -46,63 +135,5 @@ class NewWatchFaceView extends WatchUi.WatchFace {
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() as Void {
-    }
-
-
-    function drawBackground(dc as Dc) as Void {
-        //dc.setColor(Toybox.Graphics.COLOR_BLACK, Toybox.Graphics.COLOR_WHITE);
-        //dc.fillRectangle(0, 0, dc.getWidth(), dc.getHeight());
-
-		var background = Toybox.WatchUi.loadResource(Rez.Drawables.Background);
-        dc.drawBitmap(0, 0, background);
-    }
-
-    function drawCompassGauge(dc as Dc, x as Lang.Number, y as Lang.Number, r as Lang.Number, s as Lang.Number) as Void {
-        dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_BLACK);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), "N", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 90, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), "E", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 0, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), "S", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 270, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), "W", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 180, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s/2 }), "NE", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 45, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s/2 }), "NW", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 135, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s/2 }), "SW", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 225, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s/2 }), "SE", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, 315, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-    }
-
-    function drawClockGauge(dc as Dc, x as Lang.Number, y as Lang.Number, r as Lang.Number, s as Lang.Number, digits as Array) as Void {
-        dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_BLACK);
-
-        var parts = 12;
-        var angle = 270; // bottom
-        var angle_inc = 360 / parts;
-        var number = 6;
-        var number_inc = 1;
-
-        for (var i = 0; i < 12; i++) {
-            angle -= angle_inc;
-            number += number_inc;
-            if (number > 12) {
-                number -= 12;
-            }
-            dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), number.toString(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, angle, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        }
-    }
-
-    function drawSpeedGauge(dc as Dc, x as Lang.Number, y as Lang.Number, r as Lang.Number, s as Lang.Number) as Void {
-        dc.setColor(Toybox.Graphics.COLOR_WHITE, Toybox.Graphics.COLOR_BLACK);
-
-        var parts = 10;
-        var angle = 270; // bottom
-        var angle_inc = 360 / parts;
-        var number = 0;
-        var number_inc = 10;
-
-        for (var i = 0; i < 9; i++)
-        {
-            angle -= angle_inc;
-            number += number_inc;
-            dc.drawRadialText(x, y, Graphics.getVectorFont({ :face => "BionicBold", :size => s }), number.toString(), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER, angle, r*0.95, Graphics.RADIAL_TEXT_DIRECTION_CLOCKWISE);
-        }
     }
 }
