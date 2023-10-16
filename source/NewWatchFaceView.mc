@@ -22,9 +22,9 @@ class NewWatchFaceView extends WatchUi.WatchFace {
 
         // clock on outer dial
         self._outer = new Gauges.Gauge(
-            { :x => 227, :y => 227, :radius => 227, :size => 50, :fullscreen => 0 },
+            { :x => 227, :y => 227, :radius => 227, :size => 50, :fullscreen => 1 },
             { :text => Graphics.COLOR_BLUE, :stripes => Graphics.COLOR_BLUE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*....|....|....*....|....|         |....|....*....|....|....","12","3","9"]
+            ["*....|....|....*....|....|         |....|....*....|....|....","BionicBold","12","3","9"]
         );
         self._hourhand = new Gauges.Hand(
             {:x => 227.0, :y => 227.0},
@@ -43,7 +43,7 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         self._topleft = new Gauges.Gauge(
             { :x => 227-90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
             { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","N","|","E","|","S","|","W","|"]
+            ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","BionicBold","N","|","E","|","S","|","W","|"]
         );
         self._headinghand = new Gauges.Hand(
             {:x => 227.0 - 90, :y => 227.0 - 80},
@@ -56,7 +56,7 @@ class NewWatchFaceView extends WatchUi.WatchFace {
             //{ :x => 227+90, :y => 227-80, :radius => 70, :size => 24 },
             { :x => 227+90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
             { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*....|....*....|         |....*....|....","2k","3k","1k"]
+            ["*....|....*....|         |....*....|....","BionicBold","2k","3k","1k"]
             // Analog Clock:   ["*....|....|....*....|....|....*....|....|....*....|....|....","12","3","6","9"]
             // Altitude:       ["*....|....*....|....*         *....|....*....|....","5k","7k","9k","1k","3k"]
             // Heading:        ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","N","|","E","|","S","|","W","|"]
@@ -71,7 +71,7 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         self._bottom = new Gauges.Gauge(
             { :x => 227, :y => 227+140, :radius => 120, :size => 25, :fullscreen => 0 },
             { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*|*|*|*       *|*|*|","20","15","10","5","35","30","25"]
+            ["*|*|*|*       *|*|*|","BionicBold","20","15","10","5","35","30","25"]
             //["* ...|... * ...|... * ...|... *                                       * ...|... * ...|... * ...|... ","70","90","110","130","10","30","50"]
             // Hiking pace:          ["*|*|*|*       *|*|*|","20","15","10","5","35","30","25"]
             // Cycling speed:        ["*|*|*|*       *|*|*|","20","25","30","35","5","10","15"]
@@ -115,12 +115,12 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         var altitudeangle = 0.15 * Math.PI;
         var speedangle = 0.25 * Math.PI;
 
-        self._hourhand.draw(dc,hourangle);
-        self._minutehand.draw(dc,minuteangle);
-        self._secondhand.draw(dc,secondangle);
         self._headinghand.draw(dc,headingangle);
         self._altitudehand.draw(dc,altitudeangle);
         self._speedhand.draw(dc,speedangle);
+        self._hourhand.draw(dc,hourangle);
+        self._minutehand.draw(dc,minuteangle);
+        self._secondhand.draw(dc,secondangle);
     }
 
     // Called when this View is removed from the screen. Save the
