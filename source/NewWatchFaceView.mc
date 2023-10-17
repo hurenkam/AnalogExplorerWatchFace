@@ -33,19 +33,23 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         var scale = dc.getWidth()/454.0;
 
         self._analogTime = new Gauges.Clock(
-            { :x => 227 * scale, :y => 227 * scale, :radius => 227 * scale, :size => 50 * scale, :fullscreen => 1 }
+            { :x => 227 * scale, :y => 227 * scale, :radius => 227 * scale, :size => 50 * scale },
+            { :face => Rez.Drawables.Background, :hourhand => Rez.Drawables.HourHand, :minutehand => Rez.Drawables.MinuteHand, :secondhand => Rez.Drawables.SecondHand }
         );
 
         self._compass = new Gauges.Compass(
-            { :x => (227-90)  * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 20 * scale, :fullscreen => 0 }
+            { :x => (227-90)  * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 24 * scale },
+            { :face => null, :needle => Rez.Drawables.CompassNeedle }
         );
 
         self._altimeter = new Gauges.Altimeter(
-            { :x => (227+90) * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 20 * scale, :fullscreen => 0 }
+            { :x => (227+90) * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 24 * scale },
+            { :face => null, :needle => Rez.Drawables.SpeedNeedle }
         );
 
         self._speedometer = new Gauges.Speedometer(
-            { :x => 227 * scale, :y => (227+140) * scale, :radius => 120 * scale, :size => 25 * scale, :fullscreen => 0 }
+            { :x => 227 * scale, :y => (227+140) * scale, :radius => 120 * scale, :size => 32 * scale },
+            { :face => null, :needle => Rez.Drawables.SpeedNeedle }
         );
     }
 
