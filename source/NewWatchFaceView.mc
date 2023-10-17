@@ -6,134 +6,122 @@ import Toybox.WatchUi;
 using WidgetBarrel.AnalogGauges as Gauges;
 
 class NewWatchFaceView extends WatchUi.WatchFace {
-    hidden var _outer;
-    hidden var _topleft;
-    hidden var _topright;
-    hidden var _bottom;
-    hidden var _hourhand;
-    hidden var _minutehand;
-    hidden var _secondhand;
-    hidden var _headinghand;
-    hidden var _altitudehand;
-    hidden var _speedhand;
+    hidden var _analogTime;
+    hidden var _compass;
+    hidden var _altimeter;
+    hidden var _speedometer;
+    hidden var _supportsPartialUpdate = false;
+    hidden var _buffer = null;
+    hidden var _sleeping = false;
+    hidden var _previousSeconds = 0;
 
-    function initialize() {
+    function initialize()
+    {
         WatchFace.initialize();
 
-        // clock on outer dial
-        self._outer = new Gauges.Gauge(
-            { :x => 227, :y => 227, :radius => 227, :size => 50, :fullscreen => 1 },
-            { :text => Graphics.COLOR_BLUE, :stripes => Graphics.COLOR_BLUE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*....|....|....*....|....|         |....|....*....|....|....","BionicBold","12","3","9"]
-        );
-        self._hourhand = new Gauges.Hand(
-            {:x => 227.0, :y => 227.0},
-            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.HourHand}
-        );
-        self._minutehand = new Gauges.Hand(
-            {:x => 227.0, :y => 227.0},
-            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.MinuteHand}
-        );
-        self._secondhand = new Gauges.Hand(
-            {:x => 227.0, :y => 227.0},
-            {:dx => -15.0, :dy => -200.0, :scale => 1.0, :reference => Rez.Drawables.SecondHand}
-        );
-
-        // compass on top left dial
-        self._topleft = new Gauges.Gauge(
-            { :x => 227-90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
-            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","BionicBold","N","|","E","|","S","|","W","|"]
-        );
-        self._headinghand = new Gauges.Hand(
-            {:x => 227.0 - 90, :y => 227.0 - 80},
-            {:dx => -15.0, :dy => -200.0, :scale => 0.3, :reference => Rez.Drawables.CompassNeedle}
-        );
-
-
-        // altitude on top right dial
-        self._topright = new Gauges.Gauge(
-            //{ :x => 227+90, :y => 227-80, :radius => 70, :size => 24 },
-            { :x => 227+90, :y => 227-80, :radius => 70, :size => 20, :fullscreen => 0 },
-            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*....|....*....|         |....*....|....","BionicBold","2k","3k","1k"]
-            // Analog Clock:   ["*....|....|....*....|....|....*....|....|....*....|....|....","12","3","6","9"]
-            // Altitude:       ["*....|....*....|....*         *....|....*....|....","5k","7k","9k","1k","3k"]
-            // Heading:        ["*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.","N","|","E","|","S","|","W","|"]
-        );
-        self._altitudehand = new Gauges.Hand(
-            {:x => 227.0 + 90, :y => 227.0 - 80},
-            {:dx => -15.0, :dy => -200.0, :scale => 0.3, :reference => Rez.Drawables.SpeedNeedle }
-        );
-
-
-        // speed on bottom dial
-        self._bottom = new Gauges.Gauge(
-            { :x => 227, :y => 227+140, :radius => 120, :size => 25, :fullscreen => 0 },
-            { :text => Graphics.COLOR_WHITE, :stripes => Graphics.COLOR_WHITE, :dots => Graphics.COLOR_WHITE, :background => Graphics.COLOR_BLACK },
-            ["*|*|*|*       *|*|*|","BionicBold","20","15","10","5","35","30","25"]
-            //["* ...|... * ...|... * ...|... *                                       * ...|... * ...|... * ...|... ","70","90","110","130","10","30","50"]
-            // Hiking pace:          ["*|*|*|*       *|*|*|","20","15","10","5","35","30","25"]
-            // Cycling speed:        ["*|*|*|*       *|*|*|","20","25","30","35","5","10","15"]
-            // Car speed:            ["*|*|*|*       *|*|*|","70","90","110","130","10","30","50"]
-            // Analog Clock:         ["*....|....|....*....|....|         |....|....*....|....|....","12","3","9"]
-        );
-        self._speedhand = new Gauges.Hand(
-            {:x => 227.0, :y => 227.0 + 140},
-            {:dx => -15.0, :dy => -200.0, :scale => 0.5, :reference => Rez.Drawables.SpeedNeedle }
-        );
+        if (WatchUi.WatchFace has :onPartialUpdate )
+        {
+            self._supportsPartialUpdate = true;
+        }
     }
 
     // Load your resources here
-    function onLayout(dc as Dc) as Void {
+    function onLayout(dc as Dc) as Void
+    {
         setLayout(Rez.Layouts.WatchFace(dc));
+
+        var scale = dc.getWidth()/454.0;
+
+        self._analogTime = new Gauges.Clock(
+            { :x => 227 * scale, :y => 227 * scale, :radius => 227 * scale, :size => 50 * scale, :fullscreen => 1 }
+        );
+
+        self._compass = new Gauges.Compass(
+            { :x => (227-90)  * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 20 * scale, :fullscreen => 0 }
+        );
+
+        self._altimeter = new Gauges.Altimeter(
+            { :x => (227+90) * scale, :y => (227-80) * scale, :radius => 70 * scale, :size => 20 * scale, :fullscreen => 0 }
+        );
+
+        self._speedometer = new Gauges.Speedometer(
+            { :x => 227 * scale, :y => (227+140) * scale, :radius => 120 * scale, :size => 25 * scale, :fullscreen => 0 }
+        );
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
-    function onShow() as Void {
+    function onShow() as Void 
+    {
     }
 
     // Update the view
-    function onUpdate(dc as Dc) as Void {
+    function onUpdate(dc as Dc) as Void 
+    {
+        self._buffer = null;
+        var bufferdc = null;
+
+        if (self._sleeping && self._supportsPartialUpdate)
+        {
+            self._buffer = Graphics.createBufferedBitmap({
+                :width=>dc.getWidth(),
+                :height=>dc.getHeight()
+            }).get();        	
+        
+            bufferdc = self._buffer.getDc();
+        } else {
+            bufferdc = dc;
+        }
+
         // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
+        View.onUpdate(bufferdc);
 
-        self._outer.draw(dc);
-        self._topleft.draw(dc);
-        self._topright.draw(dc);
-        self._bottom.draw(dc);
+        // draw face plates
+        self._analogTime.drawFace(bufferdc);
+        self._compass.drawFace(bufferdc);
+        self._altimeter.drawFace(bufferdc);
+        self._speedometer.drawFace(bufferdc);
 
-        dc.clearClip();
+        // draw hands
+        self._compass.drawHands(bufferdc,45);         // heading in degrees
+        self._altimeter.drawHands(bufferdc,2250);     // altitude in meters
+        self._speedometer.drawHands(bufferdc,12);     // pace in minutes per kilometer
+        self._analogTime.drawHands(bufferdc,System.getClockTime());
 
-		var time = System.getClockTime();
-        var secondangle = (time.sec/60.0)   * 2.0 * Math.PI;
-        var minuteangle = (time.min/60.0)   * 2.0 * Math.PI;
-        var hourangle =   (time.hour/12.0)  * 2.0 * Math.PI + minuteangle/12;
-        var headingangle = 0.35 * Math.PI;
-        var altitudeangle = 0.15 * Math.PI;
-        var speedangle = 0.25 * Math.PI;
+        if (self._sleeping && self._supportsPartialUpdate)
+        {
+            dc.clearClip();
+            dc.drawBitmap(0,0,self._buffer);
+            self.onPartialUpdate(dc);
+        }
+    }
 
-        self._headinghand.draw(dc,headingangle);
-        self._altitudehand.draw(dc,altitudeangle);
-        self._speedhand.draw(dc,speedangle);
-        self._hourhand.draw(dc,hourangle);
-        self._minutehand.draw(dc,minuteangle);
-        self._secondhand.draw(dc,secondangle);
+    function onPartialUpdate(dc as Dc) as Void
+    {
+        var seconds = System.getClockTime().sec;
+        self._analogTime.clearSecondsHand(dc as Dc,self._buffer as BufferedBitmap);
+        self._analogTime.drawSecondsHand(dc as Dc,seconds);
     }
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
     // memory.
-    function onHide() as Void {
+    function onHide() as Void
+    {
     }
 
     // The user has just looked at their watch. Timers and animations may be started here.
-    function onExitSleep() as Void {
+    function onExitSleep() as Void
+    {
+        self._sleeping = false;
+        self._analogTime.onExitSleep();
     }
 
     // Terminate any active timers and prepare for slow updates.
-    function onEnterSleep() as Void {
+    function onEnterSleep() as Void
+    {
+        self._analogTime.onEnterSleep();
+        self._sleeping = true;
     }
 }
