@@ -7,7 +7,7 @@
             "Font": "BionicBold",
             "Size": 30
         },
-        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+        "Colors": { "Text": "00AAFF", "Stripes": "00AAFF", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
     <jsonData id="Compass">{
         "Location": { "x": 85, "y": 90, "r": 45 },
@@ -17,7 +17,7 @@
             "Font": "BionicBold",
             "Size": 15
         },
-        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+        "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
     <jsonData id="Altimeter">{
         "Location": { "x": 195, "y": 90, "r": 45 },
@@ -27,7 +27,7 @@
             "Font": "BionicBold",
             "Size": 15
         },
-        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+        "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
     <jsonData id="Speedometer">{
         "Location": { "x": 140, "y": 225, "r": 75 },
@@ -37,6 +37,6 @@
             "Font": "BionicBold",
             "Size": 20
         },
-        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+        "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
 </resources>
