@@ -1,0 +1,42 @@
+<resources>
+    <jsonData id="Clock">{
+        "Location": { "x": 140, "y": 140, "r": 140 },
+        "Decoration": {
+            "Format": "*....|....|....*....|....|         |....|....*....|....|....",
+            "Args": ["12","3","9"],
+            "Font": "BionicBold",
+            "Size": 30
+        },
+        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+    }</jsonData>
+    <jsonData id="Compass">{
+        "Location": { "x": 85, "y": 90, "r": 45 },
+        "Decoration": {
+            "Format": "*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.",
+            "Args": ["N","|","E","|","S","|","W","|"],
+            "Font": "BionicBold",
+            "Size": 15
+        },
+        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+    }</jsonData>
+    <jsonData id="Altimeter">{
+        "Location": { "x": 195, "y": 90, "r": 45 },
+        "Decoration": {
+            "Format": "*....|....*....|         |....*....|....",
+            "Args": ["2k","3k","1k"],
+            "Font": "BionicBold",
+            "Size": 15
+        },
+        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+    }</jsonData>
+    <jsonData id="Speedometer">{
+        "Location": { "x": 140, "y": 225, "r": 75 },
+        "Decoration": {
+            "Format": "*|*|*|*       *|*|*|",
+            "Args": ["20","15","10","5","35","30","25"],
+            "Font": "BionicBold",
+            "Size": 20
+        },
+        "Colors": { "Text": "0x00AAFF", "Stripes": "0x00AAFF", "Dots": "0xAAAAAA", "Background": "0x000000" }
+    }</jsonData>
+</resources>
