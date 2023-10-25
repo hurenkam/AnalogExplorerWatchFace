@@ -15,10 +15,26 @@
     <bitmap id="Background_416" filename="background-416.png" />
     <bitmap id="Background_454" filename="background-454.png" />
 
-    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
-    <bitmap id="MinuteHand" filename="longhand.png" automaticPalette="false"/>
-    <bitmap id="HourHand" filename="shorthand.png" automaticPalette="false"/>
-    <bitmap id="SecondHand" filename="secondhand.png" automaticPalette="false"/>
-    <bitmap id="SpeedNeedle" filename="speedneedle.png" automaticPalette="false"/>
-    <bitmap id="CompassNeedle" filename="compassneedle.png" automaticPalette="false"/>
+    <bitmap id="LauncherIcon"    filename="launcher_icon.png" />
+    <bitmap id="Counter4_148x60" filename="counter4-148x60.png" automaticPalette="false"/>
+    <bitmap id="Counter6_50x14"  filename="counter6-50x14.png" automaticPalette="false"/>
+    <bitmap id="Counter6_74x20"  filename="counter6-74x20.png" automaticPalette="false"/>
+    <bitmap id="Counter6_122x30" filename="counter6-122x30.png" automaticPalette="false"/>
+    <bitmap id="MinuteHand30"    filename="longhand-30x240.png" automaticPalette="false"/>
+    <bitmap id="HourHand30"      filename="shorthand-30x240.png" automaticPalette="false"/>
+    <bitmap id="SecondHand30"    filename="secondhand-30x250.png" automaticPalette="false"/>
+    <bitmap id="SpeedNeedle30"   filename="speedneedle-30x240.png" automaticPalette="false"/>
+    <bitmap id="CompassNeedle30" filename="compassneedle-30x400.png" automaticPalette="false"/>
+
+    <bitmap id="MinuteHand15"    filename="longhand-15x120.png" automaticPalette="false"/>
+    <bitmap id="HourHand15"      filename="shorthand-15x120.png" automaticPalette="false"/>
+    <bitmap id="SecondHand15"    filename="secondhand-15x125.png" automaticPalette="false"/>
+    <bitmap id="SpeedNeedle15"   filename="speedneedle-15x120.png" automaticPalette="false"/>
+    <bitmap id="CompassNeedle15" filename="compassneedle-15x200.png" automaticPalette="false"/>
+
+    <bitmap id="MinuteHand6"     filename="longhand-6x50.png" automaticPalette="false"/>
+    <bitmap id="HourHand6"       filename="shorthand-6x50.png" automaticPalette="false"/>
+    <bitmap id="SecondHand6"     filename="secondhand-6x50.png" automaticPalette="false"/>
+    <bitmap id="SpeedNeedle6"    filename="speedneedle-6x50.png" automaticPalette="false"/>
+    <bitmap id="CompassNeedle6"  filename="compassneedle-6x80.png" automaticPalette="false"/>
 </drawables>

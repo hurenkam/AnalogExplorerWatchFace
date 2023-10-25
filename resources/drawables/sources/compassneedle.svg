@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="30"
-   height="400"
-   viewBox="0 0 7.9374998 105.83333"
+   width="6"
+   height="80"
+   viewBox="0 0 1.5875 21.166666"
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    sodipodi:docname="compassneedle.svg"
-   inkscape:export-filename="..\compassneedle.jpg"
+   inkscape:export-filename="..\compassneedle-6x80.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      inkscape:document-units="pt"
-     inkscape:zoom="1.3017622"
-     inkscape:cx="226.6159"
-     inkscape:cy="226.99999"
+     inkscape:zoom="14.662505"
+     inkscape:cx="3.0008515"
+     inkscape:cy="39.999986"
      inkscape:window-width="2560"
      inkscape:window-height="1369"
      inkscape:window-x="-8"
@@ -39,18 +39,6 @@
      inkscape:export-bgcolor="#00000000" />
   <defs
      id="defs1">
-    <linearGradient
-       id="linearGradient7"
-       inkscape:collect="always">
-      <stop
-         style="stop-color:#bababa;stop-opacity:1;"
-         offset="0.2029703"
-         id="stop7" />
-      <stop
-         style="stop-color:#676767;stop-opacity:1;"
-         offset="1"
-         id="stop8" />
-    </linearGradient>
     <inkscape:path-effect
        effect="powerstroke"
        id="path-effect6"
@@ -112,43 +100,53 @@
        fx="-102.03157"
        fy="4.1666279"
        r="4.6747532"
-       gradientTransform="matrix(0.84897528,0,0,0.76630425,90.591037,49.723759)"
+       gradientTransform="matrix(0.16979505,0,0,0.15326085,18.118207,9.9447517)"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient7"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.2029703"
+         id="stop7" />
+      <stop
+         style="stop-color:#a6a6a6;stop-opacity:1;"
+         offset="1"
+         id="stop8" />
+    </linearGradient>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g8">
-      <path
-         style="fill:#929292;fill-opacity:1;stroke-width:0.104581"
-         d="M 0,53.213533 3.984187,105.83333 3.947647,53.03696 Z"
-         id="path3-1" />
-      <path
-         style="fill:#5c5c5c;fill-opacity:1;stroke-width:0.104581"
-         d="M 7.9375,53.093244 3.953314,105.71303 3.989854,52.916665 Z"
-         id="path3-7-8" />
-      <path
-         style="fill:#0ec1ff;fill-opacity:1;stroke-width:0.104581"
-         d="M 2e-6,52.619797 3.984189,0 3.947649,52.79637 Z"
-         id="path3" />
-      <path
-         style="fill:#0005b1;fill-opacity:1;stroke-width:0.104581"
-         d="M 7.937502,52.740086 3.953316,0.120296 3.989856,52.916665 Z"
-         id="path3-7" />
-      <circle
-         style="fill:url(#radialGradient8);stroke-width:0.211125"
-         id="path7"
-         cx="3.9687505"
-         cy="52.916664"
-         r="3.96875" />
-      <circle
-         style="fill:#000000;fill-opacity:1;stroke-width:0.185208"
-         id="path8"
-         cx="3.9687505"
-         cy="52.916664"
-         r="1.8520833" />
-    </g>
+    <path
+       style="fill:#929292;fill-opacity:1;stroke-width:0.0209162"
+       d="m 0,10.642703 0.79683714,10.523956 -0.007308,-10.55927 z"
+       id="path3-1" />
+    <path
+       style="fill:#5c5c5c;fill-opacity:1;stroke-width:0.0209162"
+       d="M 1.5874995,10.618646 0.79066254,21.142599 0.79797054,10.58333 Z"
+       id="path3-7-8" />
+    <path
+       style="fill:#0ec1ff;fill-opacity:1;stroke-width:0.0209162"
+       d="M 3.9999988e-7,10.523956 0.79683754,0 0.78952954,10.559271 Z"
+       id="path3" />
+    <path
+       style="fill:#0005b1;fill-opacity:1;stroke-width:0.0209162"
+       d="M 1.5874999,10.548014 0.79066294,0.02405919 0.79797094,10.58333 Z"
+       id="path3-7" />
+    <circle
+       style="fill:url(#radialGradient8);stroke-width:0.042225"
+       id="path7"
+       cx="0.79374999"
+       cy="10.583333"
+       r="0.79374999" />
+    <ellipse
+       style="fill:#000000;fill-opacity:1;stroke-width:0.0370416"
+       id="path8"
+       cx="0.79374999"
+       cy="10.583333"
+       rx="0.37041664"
+       ry="0.37041667" />
   </g>
 </svg>

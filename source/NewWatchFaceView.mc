@@ -43,6 +43,10 @@ using WidgetBarrel.AnalogGauges as Gauges;
 // - Venu® Sq 2 Music       	320 x 360	rectangle	AMOLED
 
 
+// Resolutions to be added:
+// - 218 x 218
+// - 360 x 360
+
 /*
 
 <layout id="WatchFace">
@@ -121,10 +125,6 @@ class NewWatchFaceView extends WatchUi.WatchFace {
     {
         setLayout(Rez.Layouts.WatchFace(dc));
 
-        var w = dc.getWidth();
-        var h = dc.getHeight();
-        var scale = w/454.0;
-
         var clockProperties = WatchUi.loadResource(Rez.JsonData.Clock);
         var clockBitmaps = MappedResources.ByRadius[clockProperties["Location"]["r"]];
         self._analogTime = new Gauges.Clock(clockProperties,clockBitmaps);
@@ -171,6 +171,13 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(bufferdc);
 
+        // tell gauges to update their data fields
+        var info = Activity.getActivityInfo();
+        self._analogTime.updateInfo(info);
+        self._compass.updateInfo(info);
+        self._altimeter.updateInfo(info);
+        self._speedometer.updateInfo(info);
+
         // draw face plates
         self._analogTime.drawFace(bufferdc);
         self._compass.drawFace(bufferdc);
@@ -178,10 +185,10 @@ class NewWatchFaceView extends WatchUi.WatchFace {
         self._speedometer.drawFace(bufferdc);
 
         // draw hands
-        self._compass.drawHands(bufferdc,45);         // heading in degrees
-        self._altimeter.drawHands(bufferdc,2250);     // altitude in meters
-        self._speedometer.drawHands(bufferdc,12);     // pace in minutes per kilometer
-        self._analogTime.drawHands(bufferdc,System.getClockTime());
+        self._compass.drawHands(bufferdc);
+        self._altimeter.drawHands(bufferdc);
+        self._speedometer.drawHands(bufferdc);
+        self._analogTime.drawHands(bufferdc);
 
         if (self._sleeping && self._supportsPartialUpdate)
         {
@@ -210,12 +217,18 @@ class NewWatchFaceView extends WatchUi.WatchFace {
     {
         self._sleeping = false;
         self._analogTime.onExitSleep();
+        self._altimeter.onExitSleep();
+        self._compass.onExitSleep();
+        self._speedometer.onExitSleep();
     }
 
     // Terminate any active timers and prepare for slow updates.
     function onEnterSleep() as Void
     {
         self._analogTime.onEnterSleep();
+        self._altimeter.onEnterSleep();
+        self._compass.onEnterSleep();
+        self._speedometer.onEnterSleep();
         self._sleeping = true;
     }
 }
