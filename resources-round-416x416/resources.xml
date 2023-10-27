@@ -5,13 +5,13 @@
             "Format": "*....|....|....*....|....|         |....|....*....|....|....",
             "Args": ["12","3","9"],
             "Font": "BionicBold",
-            "Size": 48
+            "Size": 47
         },
         "Colors": { "Text": "00AAFF", "Stripes": "00AAFF", "Dots": "AAAAAA", "Background": "000000" },
         "Counter": { "#": 4, "w": 37, "y": 365, "h": 50, "size": 55 }
     }</jsonData>
     <jsonData id="Compass">{
-        "Location": { "x": 126, "y": 126, "r": 70 },
+        "Location": { "x": 208, "y": 111, "r": 80 },
         "Decoration": {
             "Format": "*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.",
             "Args": ["N","|","E","|","S","|","W","|"],
@@ -21,7 +21,7 @@
         "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
     <jsonData id="Altimeter">{
-        "Location": { "x": 290, "y": 290, "r": 70 },
+        "Location": { "x": 292, "y": 257, "r": 80 },
         "Decoration": [
             {
                 "Format": "* ...|... * ...|         |... * ...|... ",
@@ -60,7 +60,7 @@
         "Counter": { "#": 6, "w": 12, "y": 320, "h": 25, "size": 25 }
     }</jsonData>
     <jsonData id="Speedometer">{
-        "Location": { "x": 126, "y": 290, "r": 70 },
+        "Location": { "x": 124, "y": 257, "r": 80 },
         "Decoration": [
             {
                 "Format": "*|*|*|*       *|*|*|",

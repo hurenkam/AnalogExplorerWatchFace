@@ -2,10 +2,14 @@
     <bitmap id="Background_70"  filename="background-70.png" />
     <bitmap id="Background_80"  filename="background-80.png" />
     <bitmap id="Background_90"  filename="background-90.png" />
+    <bitmap id="Background_100" filename="background-100.png" />
+    <bitmap id="Background_110" filename="background-110.png" />
     <bitmap id="Background_120" filename="background-120.png" />
     <bitmap id="Background_130" filename="background-130.png" />
     <bitmap id="Background_140" filename="background-140.png" />
     <bitmap id="Background_150" filename="background-150.png" />
+    <bitmap id="Background_160" filename="background-160.png" />
+    <bitmap id="Background_170" filename="background-170.png" />
     <bitmap id="Background_210" filename="background-210.png" />
     <bitmap id="Background_220" filename="background-220.png" />
     <bitmap id="Background_240" filename="background-240.png" />

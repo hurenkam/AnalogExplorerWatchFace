@@ -8,26 +8,26 @@
             "Size": 25
         },
         "Colors": { "Text": "00AAFF", "Stripes": "00AAFF", "Dots": "AAAAAA", "Background": "000000" },
-        "Counter": { "#": 4, "w": 20, "y": 205, "h": 32, "size": 35 }
+        "Counter": { "#": 4, "w": 25, "y": 200, "h": 40, "size": 40 }
     }</jsonData>
     <jsonData id="Compass">{
-        "Location": { "x": 75, "y": 75, "r": 35 },
+        "Location": { "x": 120, "y": 65, "r": 45 },
         "Decoration": {
             "Format": "*.|.*.|.*.|.*.|.*.|.*.|.*.|.*.|.",
             "Args": ["N","|","E","|","S","|","W","|"],
             "Font": "BionicBold",
-            "Size": 12
+            "Size": 15
         },
         "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" }
     }</jsonData>
     <jsonData id="Altimeter">{
-        "Location": { "x": 165, "y": 165, "r": 35 },
+        "Location": { "x": 168, "y": 148, "r": 45 },
         "Decoration": [
             {
                 "Format": "* ...|... * ...|         |... * ...|... ",
                 "Args": ["200","300","100"],
                 "Font": "BionicBold",
-                "Size": 12,
+                "Size": 15,
                 "Range": 350,
                 "Multiplier": 400
             },
@@ -35,7 +35,7 @@
                 "Format": "* ...|... * ...|         |... * ...|... ",
                 "Args": ["500","750","250"],
                 "Font": "BionicBold",
-                "Size": 12,
+                "Size": 15,
                 "Range": 750,
                 "Multiplier": 1000
             },
@@ -43,7 +43,7 @@
                 "Format": "* ...|... * ...|         |... * ...|... ",
                 "Args": ["2k","3k","1k"],
                 "Font": "BionicBold",
-                "Size": 12,
+                "Size": 15,
                 "Range": 3500,
                 "Multiplier": 4000
             },
@@ -51,7 +51,7 @@
                 "Format": "* ...|... * ...|         |... * ...|... ",
                 "Args": ["10k","15k","5k"],
                 "Font": "BionicBold",
-                "Size": 12,
+                "Size": 15,
                 "Range": 15000,
                 "Multiplier": 20000
             }
@@ -60,7 +60,7 @@
         "Counter": { "#": 6, "w": 8, "y": 175, "h": 14, "size": 14 }
     }</jsonData>
     <jsonData id="Speedometer">{
-        "Location": { "x": 75, "y": 165, "r": 35 },
+        "Location": { "x": 72, "y": 148, "r": 45 },
         "Decoration": [
             {
                 "Format": "*|*|*|*       *|*|*|",
@@ -68,7 +68,7 @@
                 "Multiplier": 10,
                 "Args": ["4","5","6","7","1","2","3"],
                 "Font": "BionicBold",
-                "Size": 12
+                "Size": 15
             },
             {
                 "Format": "*|*|*|*       *|*|*|",
@@ -76,7 +76,7 @@
                 "Multiplier": 50,
                 "Args": ["20","25","30","35","5","10","15"],
                 "Font": "BionicBold",
-                "Size": 12
+                "Size": 15
             },
             {
                 "Format": "*|*|*|*       *|*|*|",
@@ -84,7 +84,7 @@
                 "Multiplier": 100,
                 "Args": ["40","50","60","70","10","20","30"],
                 "Font": "BionicBold",
-                "Size": 12
+                "Size": 15
             },
             {
                 "Format": "*|*|*|*       *|*|*|",
@@ -92,7 +92,7 @@
                 "Multiplier": 300,
                 "Args": ["120","150","180","210","30","60","90"],
                 "Font": "BionicBold",
-                "Size": 12
+                "Size": 15
             }
         ],
         "Colors": { "Text": "AAAAAA", "Stripes": "AAAAAA", "Dots": "AAAAAA", "Background": "000000" },
